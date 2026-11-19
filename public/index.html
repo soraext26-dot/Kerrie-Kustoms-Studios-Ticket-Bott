@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kerrie Kustoms Studios Dashboard</title><link rel="stylesheet" href="/style.css"></head>
+<body><main class="wrap"><header><div class="logo">✦ <span>KERRIE KUSTOMS<small>STUDIOS • DISCORD BOT</small></span></div><span id="status">Connecting…</span></header>
+<section class="panel" id="login"><h1>Welcome back</h1><p>Enter your dashboard password.</p><input id="password" type="password" placeholder="Dashboard password"><button id="loginBtn">Open dashboard</button><p id="error"></p></section>
+<section id="dashboard" hidden><nav><button data-tab="overview">Overview</button><button data-tab="welcome">Welcome settings</button><button data-tab="appearance">Appearance</button></nav>
+<section class="panel tab" id="overview"><h2>Server overview</h2><select id="server"></select><p>Use <code>/ticket-panel</code> in your Discord server to post the ticket panel.</p></section>
+<section class="panel tab" id="welcome" hidden><h2>Welcome & goodbye</h2><label>Welcome channel ID<input id="welcome_channel_id"></label><label>Welcome message<textarea id="welcome_message"></textarea></label><label>Goodbye channel ID<input id="goodbye_channel_id"></label><label>Goodbye message<textarea id="goodbye_message"></textarea></label><label>Auto-role ID<input id="auto_role_id"></label><button class="save">Save settings</button></section>
+<section class="panel tab" id="appearance" hidden><h2>Customize colors</h2><div class="colors"><label>Primary<input type="color" id="primary_color"></label><label>Accent<input type="color" id="accent_color"></label><label>Background<input type="color" id="background_color"></label></div><button class="save">Save appearance</button></section>
+<p id="notice"></p></section></main><script src="/app.js"></script></body></html>
