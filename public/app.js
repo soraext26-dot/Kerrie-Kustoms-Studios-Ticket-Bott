@@ -1,4 +1,4 @@
-let password="",guildId="",current={};const $=id=>document.getElementById(id);
+let password="",guildId="",current={},installPrompt=null;const $=id=>document.getElementById(id);
 async function api(path,opts={}){const r=await fetch(path,{...opts,headers:{"Content-Type":"application/json","x-dashboard-password":password,...(opts.headers||{})}});const d=await r.json();if(!r.ok)throw Error(d.error||"Request failed");return d}
 function colors(){document.documentElement.style.setProperty("--pink",$("primary_color").value);document.documentElement.style.setProperty("--gold",$("accent_color").value);document.documentElement.style.setProperty("--bg",$("background_color").value)}
 const fields=["welcome_channel_id","welcome_message","goodbye_channel_id","goodbye_message","auto_role_id","staff_role_id","transcript_channel_id","primary_color","accent_color","background_color"];
@@ -8,4 +8,8 @@ $("server").onchange=async e=>{guildId=e.target.value;await load().catch(e=>$("n
 document.querySelectorAll("nav button").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab").forEach(t=>t.hidden=t.id!==b.dataset.tab)});
 ["primary_color","accent_color","background_color"].forEach(id=>$(id).oninput=colors);
 document.querySelectorAll(".save").forEach(b=>b.onclick=async()=>{const body={};for(const k of fields)body[k]=$(k).value;try{await api("/api/settings/"+guildId,{method:"POST",body:JSON.stringify(body)});$("notice").textContent="Settings saved."}catch(e){$("notice").textContent=e.message}});
+window.addEventListener("beforeinstallprompt",e=>{e.preventDefault();installPrompt=e;$("installBtn").hidden=false});
+$("installBtn").onclick=async()=>{if(!installPrompt)return;installPrompt.prompt();await installPrompt.userChoice;installPrompt=null;$("installBtn").hidden=true};
+window.addEventListener("appinstalled",()=>{$("installBtn").hidden=true;$("notice").textContent="Kerrie Kustoms dashboard installed."});
+if("serviceWorker" in navigator)window.addEventListener("load",()=>navigator.serviceWorker.register("/sw.js").catch(err=>console.warn("App offline support unavailable:",err)));
 fetch("/api/health").then(r=>r.json()).then(d=>$("status").textContent=d.botReady?"● Bot online":"● Dashboard online • bot connecting").catch(()=>$("status").textContent="● Starting");
