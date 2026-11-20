@@ -1,30 +1,26 @@
 # Kerrie Kustoms Studios Ticket Bot
 
-Discord.js v14 ticket and welcome bot with a pink, gold and black web dashboard.
+Discord.js ticket and welcome bot with a pink, gold and black dashboard.
 
-## Deploy on Railway
-1. Connect this GitHub repository to Railway.
-2. Add the variables below in Railway > Variables.
-3. Deploy. Railway runs `npm start` and checks `/api/health`.
+## Ticket features
+- Private tickets for General Support, Purchases and Custom Orders.
+- Configurable staff role can view and claim tickets.
+- Ticket owner or configured staff can close tickets.
+- Transcript text file is sent to the configured transcript log channel when a ticket closes.
+- Dashboard settings for staff role, transcript channel, welcome/goodbye channels and theme colors.
 
-Required variables:
-- `DISCORD_TOKEN`: bot token from Discord Developer Portal
-- `DISCORD_CLIENT_ID`: Application ID
-- `DASHBOARD_PASSWORD`: choose a strong private password
-
-Optional:
-- `GUILD_ID`: test server ID for faster slash-command registration
-- `PORT`: Railway supplies this automatically
+## Railway variables
+Required: DISCORD_TOKEN, DISCORD_CLIENT_ID, DASHBOARD_PASSWORD.
+Optional: GUILD_ID (test guild for faster slash-command registration). Railway supplies PORT automatically.
 
 ## Discord setup
-- Enable **Server Members Intent** in Developer Portal for welcome/goodbye and auto-role.
-- Invite the bot with `bot` and `applications.commands` scopes.
-- Grant View Channels, Send Messages, Read Message History, Manage Channels, and (for auto-role) Manage Roles.
-- Keep the bot's role above any role it must assign.
-- Run `/ticket-panel` in the channel where users should open tickets.
-- Use `/setup-welcome`, `/setup-goodbye`, and `/set-auto-role` to configure the server.
+- Enable Server Members Intent in the Developer Portal for welcome/goodbye and auto-role.
+- Invite with bot and applications.commands scopes.
+- Grant View Channels, Send Messages, Read Message History, Manage Channels, Attach Files and (for auto-role) Manage Roles.
+- Put the bot role above roles it must assign.
+- Use /ticket-panel to post the category selector.
+- In the dashboard, set Staff role ID and Transcript log channel ID, then save Ticket settings.
+- Members with the configured staff role can see and claim tickets. Ticket creators and staff can close them.
 
-## Dashboard
-Open the Railway service's public domain. Enter the dashboard password from Railway Variables. Dashboard settings are currently held in process memory and reset if the service restarts; add a persistent database before relying on long-term settings storage.
-
-Never commit your bot token or dashboard password. Do not upload your `.env` file to GitHub.
+## Dashboard persistence note
+Settings currently live in process memory and reset when Railway restarts. Configure them again after a restart until persistent database storage is added. Never commit your .env file or bot token.
